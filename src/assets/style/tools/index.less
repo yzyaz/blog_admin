@@ -1,0 +1,8 @@
+// 一些less的方法 函数等
+// 由于直接在component组件less中直接使用这个中的方法是没法用的会报错未引入,需要再使用的组件less中引入此文件.会有点麻烦.
+// 这里直接配置了webpack的less-loader的additionalData属性, 会自动在每个less文件中引入此tools文件,且是@import (reference)引入,只会使用其中的方法或者变量,并不会编译它到最终的css文件中
+
+// 示列==========
+.card() {
+  color: red;
+}
