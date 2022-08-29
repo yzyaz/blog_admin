@@ -1,7 +1,7 @@
 import { Suspense, useCallback } from 'react';
-import { RouteConfigComponentProps, renderRoutes } from 'react-router-config';
+import { RouteConfigComponentProps } from 'react-router-config';
 import { Layout, Menu, Spin } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { navList } from '../route/sortData';
 
 import styles from './index.module.less';
@@ -12,13 +12,15 @@ interface IProps {}
 type TProps = RouteConfigComponentProps<IProps>;
 
 const BasicLayout = (props: TProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
+
+  const location = useLocation();
 
   const clickMenu = useCallback(
     (v) => {
-      history.push(v.key);
+      navigate(v.key);
     },
-    [history]
+    [navigate]
   );
 
   return (
@@ -29,7 +31,7 @@ const BasicLayout = (props: TProps) => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={[history.location.pathname || navList[0].path]}
+            defaultSelectedKeys={[location.pathname || navList[0].path]}
             items={navList.map((item) => ({
               key: item.path,
               icon: item.icon,
@@ -43,7 +45,8 @@ const BasicLayout = (props: TProps) => {
           <Content className={styles.layoutContent}>
             <div className={styles.layoutContentBox}>
               <Suspense fallback={<Spin className="fallbackSpin" />}>
-                {renderRoutes(props.route?.routes)}
+                {/* 路由元素插槽 */}
+                <Outlet />
               </Suspense>
             </div>
           </Content>

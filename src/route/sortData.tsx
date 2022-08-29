@@ -13,31 +13,27 @@ export const navList = [
     icon: <HomeOutlined />,
 
     path: '/home',
-    exact: true,
-    component: Home,
+    element: Home,
   },
   {
     label: '文章',
     icon: <CopyOutlined />,
 
     path: '/article',
-    exact: true,
-    component: Article,
+    element: Article,
   },
   {
     label: 'banner',
     icon: <CopyOutlined />,
 
     path: '/banner',
-    exact: true,
-    component: Banner,
+    element: Banner,
   },
   {
     label: '标签',
     icon: <CopyOutlined />,
 
     path: '/tags',
-    exact: true,
-    component: Tags,
+    element: Tags,
   },
 ];

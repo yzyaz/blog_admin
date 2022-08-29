@@ -1,15 +1,15 @@
-import { BrowserRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
+import { useRoutes } from 'react-router-dom';
 import routes from './route';
 import { Provider } from 'react-redux';
 import store from './store';
-import './App.less';
 import { SWRConfig } from 'swr';
 import { Suspense } from 'react';
 import { Spin } from 'antd';
 
+import './App.less';
+
 function App() {
-  console.log('aa');
+  const element = useRoutes(routes);
 
   return (
     <Provider store={store}>
@@ -22,7 +22,7 @@ function App() {
         }}
       >
         <Suspense fallback={<Spin className="fallbackSpin" />}>
-          <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+          {element}
         </Suspense>
       </SWRConfig>
     </Provider>

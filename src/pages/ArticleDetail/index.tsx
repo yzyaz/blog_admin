@@ -11,7 +11,7 @@ import {
 import useGetTags from 'src/data/use-getTags';
 import { useLocalStorage } from 'react-use';
 import { debounce } from 'lodash-es';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useGetArticle from 'src/data/use-getArticle';
 
 import styles from './index.module.less';
@@ -56,7 +56,7 @@ const ArticleDetail = (props: IProps) => {
   const [cover, setCover] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // 本地数据
   const [storageInfo, setStorageInfo] = useLocalStorage(
@@ -86,7 +86,7 @@ const ArticleDetail = (props: IProps) => {
           // 提交成功后, 清除本地数据
           setStorageInfo(defaultValue);
           message.success('操作成功');
-          history.push('/article');
+          navigate('/article');
         })
         .catch((err) => {
           message.warning(err.message);
@@ -95,7 +95,7 @@ const ArticleDetail = (props: IProps) => {
           setLoading(false);
         });
     },
-    [cover, data, history, setStorageInfo]
+    [cover, data, navigate, setStorageInfo]
   );
 
   // 文章内容图片上传
