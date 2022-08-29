@@ -11,7 +11,7 @@ const Account = () => {
   const loadingObj = useSelector(
     (rootState) => rootState.loading.effects.count.fetchWn
   );
-  
+
   React.useEffect(() => {
     dispatch.count.fetchWn();
   }, [dispatch.count]);

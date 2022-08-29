@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import './assets/style/index.less';
+import 'antd/dist/antd.css';
 
 import App from './App';
 

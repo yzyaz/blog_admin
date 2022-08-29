@@ -25,10 +25,147 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .shouping {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        top: 0;
+        left: 0;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+      }
+
+      .shouping * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .wrapper {
+        width: 100px;
+        height: 100px;
+        background: #2c3e50;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+      .wrapper .belt {
+        position: absolute;
+        top: 60%;
+        left: 0%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 5px;
+        background: #fff;
+        animation: belt 2s linear infinite;
+        z-index: 2;
+      }
+      .wrapper .belt .t {
+        width: 5px;
+        height: 2px;
+        background: #fff;
+        position: absolute;
+        top: -2px;
+        left: calc(20px * var(--index));
+      }
+      .wrapper .box {
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        position: absolute;
+        left: 50%;
+        top: -10%;
+        transform: translate(-50%, -50%);
+        animation: box 2s infinite;
+        animation-delay: calc(1s + (1s * var(--index)));
+        z-index: 1;
+      }
+
+      @keyframes belt {
+        to {
+          left: 100%;
+        }
+      }
+      @keyframes box {
+        25% {
+          top: 52%;
+          animation-timing-function: cubuc-bezier(0.27, 0.37, 0.43, 0.07);
+        }
+        35% {
+          top: 52%;
+          left: 52%;
+          animation-timing-function: cubic-bezier(0.33, 0.9, 0.86, 0.62);
+        }
+        50% {
+          top: 52%;
+          left: 55%;
+          animation-timing-function: linear;
+        }
+        75% {
+          top: 52%;
+          left: 75%;
+          animation-timing-function: linear;
+        }
+        100% {
+          top: 52%;
+          left: 120%;
+          animation-timing-function: linear;
+        }
+      }
+      .support {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        padding: 10px;
+        display: flex;
+      }
+
+      .shouping a {
+        margin: 0 20px;
+        color: #fff;
+        font-size: 2rem;
+        transition: all 400ms ease;
+      }
+
+      .shouping a:hover {
+        color: #222;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="shouping">
+        <div class="wrapper">
+          <div class="belt">
+            <div class="t" style="z-index: 0"></div>
+            <div class="t" style="z-index: 1"></div>
+            <div class="t" style="z-index: 2"></div>
+            <div class="t" style="z-index: 3"></div>
+            <div class="t" style="z-index: 4"></div>
+            <div class="t" style="z-index: 5"></div>
+            <div class="t" style="z-index: 6"></div>
+            <div class="t" style="z-index: 7"></div>
+            <div class="t" style="z-index: 8"></div>
+            <div class="t" style="z-index: 9"></div>
+          </div>
+          <div class="box" style="z-index: 0"></div>
+          <div class="box" style="z-index: 1"></div>
+          <div class="box" style="z-index: 2"></div>
+          <div class="box" style="z-index: 3"></div>
+          <div class="box" style="z-index: 4"></div>
+        </div>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

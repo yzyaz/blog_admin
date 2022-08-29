@@ -1,5 +1,5 @@
 import { createModel } from '@rematch/core';
-import { apiGetWn } from 'src/api/count';
+// import { apiGetWn } from 'src/api/blog';
 import { RootModel } from '.';
 
 export const count = createModel<RootModel>()({
@@ -39,8 +39,8 @@ export const count = createModel<RootModel>()({
 
     // 数据请求
     async fetchWn() {
-      let req = await apiGetWn();
-      dispatch.count.changeReq(req);
+      // let req = await apiGetWn();
+      // dispatch.count.changeReq(req);
     },
   }),
 });
