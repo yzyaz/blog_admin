@@ -1,29 +1,46 @@
-# 配置见: https://yzyaz.yuque.com/docs/share/ed27925f-1396-490b-9106-2ebea37be9df?# 《GitHub actions与部署至GitHub pages和部署至》
-# 一个GitHub Actions脚本, 可部署至GitHub Pages和自己服务器, 打开下方注释可运行
-
+# 一个GitHub Actions脚本, 可部署至GitHub Pages和自己服务器
+# ${{secrets.}} 等变量需要在setting>secrets>actions中配置
+# 官网配置文档 https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 name: GitHub Actions Build and Deploy Demo
+
+# 字段指定触发 workflow 的条件
 # on:
 #   # 触发的分支
 #   push:
 #     branches:
-# - master
+#       - master
 
 # 手动触发
 on: workflow_dispatch
 
 jobs:
+  # 一个job任务，任务名为build-and-deploy
   build-and-deploy:
+    # runs-on 指定job任务运行所需要的虚拟机环境(必填字段)
     runs-on: ubuntu-latest
+    # steps是每个Job的运行步骤，可以包含一个或多个步骤
     steps:
-      # 切换分支
-      - name: Checkout
-        uses: actions/checkout@v2.4.0
+      - name: 获取源码
+        # 使用action库
+        uses: actions/checkout@master
 
-      # 安装依赖和打包
-      - name: Install and Build
+      - name: 安装依赖 打包
         run: |
           npm i
           npm run build
+
+      - name: 拷贝文件至服务器(使用密码连接)
+        uses: appleboy/scp-action@master
+        with:
+          # host:
+          # password:
+          host: '${{ secrets.SERVER_IP }}'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: root
+          source: './build/*'
+          target: '/dockerDir/nginx/project/myblog/admin'
+          rm: true
+          strip_components: 1
 
       # 部署至GitHub Pages
       # - name: deploy file to GitHub Pages
@@ -33,12 +50,10 @@ jobs:
       #     branch: gh-pages
       #     folder: build
 
-      # 部署至自己的服务器
-      - name: deploy file to server
-        uses: wlixcc/SFTP-Deploy-Action@v1.0
-        with:
-          username: 'root'
-          server: '${{ secrets.SERVER_IP }}'
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local_path: './build/*'
-          remote_path: '/dockerDir/nginx/project/myblog/admin'
+      # - name: ssh-action使用密码
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host:
+      #     username: root
+      #     password:
+      #     script: whoami
