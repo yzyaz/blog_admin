@@ -10,8 +10,6 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 
-interface IProps {}
-
 const tagColor = [
   'pink',
   'red',
@@ -33,7 +31,7 @@ const params = {
   start: 1,
 };
 
-const Article = (props: IProps) => {
+const Article = () => {
   const { data, isValidating, error, mutate } = useGetList(params);
   const list = data?.list || [];
 

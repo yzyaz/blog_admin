@@ -1,10 +1,11 @@
 import { Suspense, useCallback } from 'react';
 import { RouteConfigComponentProps } from 'react-router-config';
-import { Layout, Menu, Spin } from 'antd';
+import { Button, Layout, Menu, message, Spin } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { navList } from '../route/sortData';
 
 import styles from './index.module.less';
+import { adminLogout } from 'src/api/blog';
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,6 +23,18 @@ const BasicLayout = (props: TProps) => {
     },
     [navigate]
   );
+
+  // 登出
+  const logout = useCallback(() => {
+    adminLogout()
+      .then((res) => {
+        message.success('操作成功');
+        navigate('/login');
+      })
+      .catch((err) => {
+        message.warning(err.message || '操作失败');
+      });
+  }, [navigate]);
 
   return (
     <>
@@ -41,7 +54,16 @@ const BasicLayout = (props: TProps) => {
           />
         </Sider>
         <Layout className={styles.layout}>
-          <Header />
+          <Header className={styles.header}>
+            <Button
+              type="primary"
+              danger
+              className={styles.logout}
+              onClick={logout}
+            >
+              登出
+            </Button>
+          </Header>
           <Content className={styles.layoutContent}>
             <div className={styles.layoutContentBox}>
               <Suspense fallback={<Spin className="fallbackSpin" />}>

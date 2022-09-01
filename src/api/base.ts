@@ -1,15 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
-// import https from 'https';
 
 // export const BASE_URL =
 //   'https://www.fastmock.site/mock/ecbb6182dbd3487a6fbe5b475c5175bc/blog';
 export const BASE_URL = 'http://127.0.0.1:7001/admin';
 
 export const BASE_CONFIG = {
-  // 取消证书校验
-  // httpsAgent: new https.Agent({
-  //   rejectUnauthorized: false,
-  // }),
   baseURL: BASE_URL,
   withCredentials: true,
 };
@@ -30,9 +25,14 @@ export const createBaseAxios = (
     ...(options ? options : {}),
   });
 
-/** 默认拦截器 */
+/** 响应默认拦截器 */
 export const interceptorsDefault = function (response: any) {
-  if (response.data.code !== 2000) {
+  const code = response.data.code;
+  if (code !== 2000) {
+    if (code === 5001) {
+      // 未登录, 跳转登录页
+      window.location.href = '/login';
+    }
     return Promise.reject(new Error(response.data.msg));
   }
   return response;

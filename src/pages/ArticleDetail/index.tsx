@@ -108,7 +108,7 @@ const ArticleDetail = (props: IProps) => {
           setMarkHTML(
             (pre) =>
               pre +
-              `![${item.wsName}](${process.env.REACT_APP_HOST}${item.url})`
+              `![${item.wsName}](${process.env.REACT_APP_SERVER_HOST}${item.url})`
           );
       })
       .catch((err) => {
@@ -125,7 +125,7 @@ const ArticleDetail = (props: IProps) => {
     uploadImgFile({ file })
       .then((res) => {
         const item = res.data?.data?.[0];
-        const cover = `${process.env.REACT_APP_HOST}${item.url}`;
+        const cover = `${process.env.REACT_APP_SERVER_HOST}${item.url}`;
         setCover(cover);
       })
       .catch((err) => {
@@ -239,6 +239,7 @@ const ArticleDetail = (props: IProps) => {
                       }
                     }}
                     onDrop={(e) => {
+                      e.preventDefault();
                       const file = e.dataTransfer.files[0];
                       if (file) {
                         uploadImg(file);

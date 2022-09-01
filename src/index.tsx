@@ -4,6 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import zhCN from 'antd/es/locale/zh_CN';
+import { ConfigProvider } from 'antd';
 
 import './assets/style/index.less';
 import 'antd/dist/antd.min.css';
@@ -13,7 +15,9 @@ const root = createRoot(container as HTMLElement); // createRoot(container!) if 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ConfigProvider locale={zhCN}>
+        <App />
+      </ConfigProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -40,6 +40,17 @@ export interface BannerItem {
   title: string;
   /** 地址 */
   src: string;
+  id: string;
+}
+
+/** 账号 */
+export interface IAccountItem {
+  id: string;
+  /** 账号 */
+  name: string;
+  /** 描述 */
+  desc: string;
+  alterDate: string;
 }
 
 // ===============
